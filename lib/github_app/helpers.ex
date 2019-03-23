@@ -1,0 +1,34 @@
+defmodule GithubApp.Helpers do
+  @moduledoc """
+    This module is automatically imported into all controllers to provide
+    a custom way to send errors to the client
+  """
+
+  import Plug.Conn, only: [put_status: 2]
+  import Phoenix.Controller, only: [render: 3, put_view: 2]
+  alias GithubAppWeb.ErrorView
+  alias Ecto.Changeset
+
+  def send_error(conn, code, message) when is_binary(message) do
+    conn |> prepare_send_error(code) |> render("#{code}.json", %{error: message})
+  end
+
+  def send_error(conn, code, changeset) do
+    errors = extract_changeset_errors(changeset)
+    conn |> prepare_send_error(code) |> render("#{code}.json", %{error: errors})
+  end
+
+  defp extract_changeset_errors(changeset) do
+    Changeset.traverse_errors(changeset, fn {msg, opts} ->
+      Enum.reduce(opts, msg, fn {key, value}, acc ->
+        String.replace(acc, "%{#{key}}", to_string(value))
+      end)
+    end)
+  end
+
+  defp prepare_send_error(conn, code) do
+    conn
+    |> put_status(code)
+    |> put_view(ErrorView)
+  end
+end

@@ -1,0 +1,21 @@
+{
+  "skip_files": [
+    "lib/github_app/helpers.ex",
+    "lib/github_app/repo.ex",
+    "lib/github_app/repositories/github_behaviour.ex",
+    "lib/github_app/repositories/github_live.ex",
+    "lib/github_app_web.ex",
+    "lib/github_app_web/channels/user_socket.ex",
+    "lib/github_app_web/controllers/catch_all_controller.ex",
+    "lib/github_app_web/controllers/fallback_controller.ex",
+    "lib/github_app_web/endpoint.ex",
+    "lib/github_app_web/gettext.ex",
+    "lib/github_app_web/router.ex",
+    "lib/github_app_web/views/error_helpers.ex",
+    "test/support/channel_case.ex",
+    "test/support/conn_case.ex",
+    "test/support/data_case.ex",
+    "lib/github_app/application.ex",
+    "lib/github_app_web/views/error_view.ex"
+  ]
+}

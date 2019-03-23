@@ -1,0 +1,154 @@
+FORMAT: 1A
+HOST: http://localhost:4000
+
+# Github App
+
+This is an app to add tags to starred git repositories.
+
+# Group Repositories
+
+## Repositories Collection [/api/repositories]
+
+### Get all starred repositories according to username [GET /api/repositories/{username}/starred]
++ Parameter
+  + username: "tiagodavi" (string) - Username on Github
+
++ Response 200 (application/json)
+  + Body
+      [
+        {
+          "repository": {
+            "description": "A MVC framework with Node.js + Express.js",
+            "git_repo_id": 21737112,
+            "id": 598,
+            "language": "JavaScript",
+            "name": "baconpress",
+            "url": "https://github.com/danilodeveloper/baconpress.git",
+            "tags": [
+              {
+                "tag": {
+                  "name": "repo",
+                  "id": 1,
+                  "repository_id": 1
+                }
+              }
+            ],
+            "tag_recommendations": [
+              "baconpress",
+              "php",
+              "angular",
+              "backend",
+              "frontend",
+              "vue"
+            ]
+          }
+        }
+      ]
+
+### Search repositories according to tag [GET /api/repositories/search/{tag}]
++ Parameter
+  + tag: "frontend" (string) - Tag name
+
++ Response 200 (application/json)
+  + Body
+      [
+        {
+          "repository": {
+            "description": "A MVC framework with Node.js + Express.js",
+            "git_repo_id": 21737112,
+            "id": 598,
+            "language": "JavaScript",
+            "name": "baconpress",
+            "url": "https://github.com/danilodeveloper/baconpress.git",
+            "tags": [
+              {
+                "tag": {
+                  "name": "repo",
+                  "id": 1,
+                  "repository_id": 1
+                }
+              }
+            ],
+            "tag_recommendations": [
+              "baconpress",
+              "php",
+              "angular",
+              "backend",
+              "frontend",
+              "vue"
+            ]
+          }
+        }
+      ]
+
+### Create tags for a repository [POST /api/repositories/{id}/tags]
++ Parameter
+  + id: 1 (number) - Repository ID
+
++ Request
+    {"tags": ["frontend", "backend"]}
+
++ Response 200 (application/json)
+  + Body
+      [
+        {
+          "tag": {
+            "id": 161,
+            "name": "frontend",
+            "repository_id": 593
+          }
+        },
+        {
+          "tag": {
+            "id": 162,
+            "name": "javascript",
+            "repository_id": 593
+          }
+        },
+        {
+          "tag": {
+            "id": 163,
+            "name": "react",
+            "repository_id": 593
+          }
+        }
+    ]
+
+# Group Tags
+
+## Tags Collection [/api/tags]
+
+### Update tag [PUT /api/tags/{id}]
++ Parameter
+    + id: 1 (number) - Tag ID
+    
++ Request
+    {
+      "tag": {
+        "name": "new-name"
+      }
+    }
+
++ Response 200 (application/json)
+    + Body
+        {
+          "tag": {
+            "id": 161,
+            "name": "new-name",
+            "repository_id": 593
+          }
+        }
+
+### Delete tag [DELETE /api/tags/{id}]
++ Parameter
+    + id: 1 (number) - Tag ID
+
++ Response 200 (application/json)
+    + Body
+        {
+          "tag": {
+            "id": 161,
+            "name": "new-name",
+            "repository_id": 593
+          }
+        }
